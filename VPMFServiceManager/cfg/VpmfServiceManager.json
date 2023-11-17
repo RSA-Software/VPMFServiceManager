@@ -1,0 +1,15 @@
+{
+	"RecordsTotal" : 1,
+	"Data": [
+		{
+			"operation"     : "AECHECK",
+			"Host"     		: "localhost",
+			"Archivio" 		: "vpmf",
+			"DbPort"   		: 5432,
+			"User"     		: "postgres",
+			"Password" 		: "$rsa_software_1995$",
+			"start_delay"   : 0,
+			"restart_delay"	: 900
+		}
+	]
+}
