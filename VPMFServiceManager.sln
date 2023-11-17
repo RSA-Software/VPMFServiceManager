@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VPMFServiceManager", "VPMFServiceManager\VPMFServiceManager.csproj", "{D7DC8045-0B08-4EEE-9751-5DB75501954A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D7DC8045-0B08-4EEE-9751-5DB75501954A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7DC8045-0B08-4EEE-9751-5DB75501954A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7DC8045-0B08-4EEE-9751-5DB75501954A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7DC8045-0B08-4EEE-9751-5DB75501954A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6B969215-EEFF-4E3C-BB38-851A37F8BD19}
+	EndGlobalSection
+EndGlobal
