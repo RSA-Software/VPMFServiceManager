@@ -353,7 +353,7 @@ namespace VpmfServiceManager
 							sql += ",";
 						else
 							first = false;
-						sql += " cas_ult_ver = ?";
+						sql += " cas_ult_ver_ae = ?";
 					}
 					if (!string.IsNullOrWhiteSpace(cas_piva_ult_ver))
 					{
@@ -389,7 +389,7 @@ namespace VpmfServiceManager
 					cmd.CommandText = sql;
 					cmd.Parameters.Clear();
 					if (cas_data_ult_trasmissione.HasValue) cmd.Parameters.Add("@cas_data_ult_trasmissione", OdbcType.DateTime).Value = cas_data_ult_trasmissione;
-					if (cas_ult_ver.HasValue) cmd.Parameters.Add("@cas_ult_ver", OdbcType.DateTime).Value = cas_ult_ver;
+					if (cas_ult_ver.HasValue) cmd.Parameters.Add("@cas_ult_ver_ae", OdbcType.DateTime).Value = cas_ult_ver;
 					if (!string.IsNullOrWhiteSpace(cas_piva_ult_ver)) cmd.Parameters.Add("@cas_piva_ult_ver", OdbcType.VarChar).Value = cas_piva_ult_ver;
 					if (cas_data_agg_firmware.HasValue) cmd.Parameters.Add("@cas_data_agg_firmware", OdbcType.DateTime).Value = cas_data_agg_firmware;
 					if (cas_data_release_firmware.HasValue) cmd.Parameters.Add("@cas_data_release_firmware", OdbcType.DateTime).Value = cas_data_release_firmware;
@@ -480,7 +480,7 @@ namespace VpmfServiceManager
 #if DEBUG
 							cmd.CommandText = $"SELECT cas_codice, cas_qrcode FROM {schema}.casse WHERE cas_qrcode <> '' AND cas_dismissione IS NULL";
 #else
-							cmd.CommandText = $"SELECT cas_codice, cas_qrcode FROM {schema}.casse WHERE cas_qrcode <> '' AND cas_dismissione IS NULL AND cas_last_check < (NOW() - INTERVAL '12 HOURS')";
+							cmd.CommandText = $"SELECT cas_codice, cas_qrcode FROM {schema}.casse WHERE cas_qrcode <> '' AND cas_dismissione IS NULL AND (cas_last_check IS NULL OR cas_last_check < (NOW() - INTERVAL '12 HOURS'))";
 #endif
 							reader = cmd.ExecuteReader();
 							while (reader.Read())
@@ -496,7 +496,14 @@ namespace VpmfServiceManager
 							foreach (var matr in matr_arr)
 							{
 								if (_exit) break;
-								Check(ref cmd, schema, matr.matricola, matr.qrcode);
+								try
+								{
+									Check(ref cmd, schema, matr.matricola, matr.qrcode);
+								}
+								catch (Exception ex)
+								{
+									WriteLog($"AgenziaEntrateCheck {schema} - {matr.matricola} : {ex.Message}");
+								}
 							}
 						}
 						connection.Close();
